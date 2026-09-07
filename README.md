@@ -146,7 +146,7 @@ The FLEDGE Nest assists with:
 
 Before execution:
 
-1. Place `FLEDGE.ps1` on the prepared collection media.
+1. Place or the ability to run `FLEDGE.ps1` on the prepared collection media or targeted Windows environment.
 2. Ensure the `Dependencies` directory is located beside the script.
 3. Accept applicable dependency EULAs before field use.
 4. Open PowerShell with administrative privileges when authorized.
@@ -171,7 +171,7 @@ The recommended default execution is:
 
 This performs a **passive live-response collection** and does not intentionally conduct active host discovery.
 
-The standard collection includes artifacts such as:
+The standard collection includes the following artifacts:
 
 * Collection metadata
 * Local and UTC system time
@@ -238,13 +238,11 @@ Active network discovery should therefore only be used when it is within the sco
 
 ### Current Network-Sweep Safety Behavior
 
-FLEDGE currently performs automatic host enumeration only when the primary IPv4 interface uses a:
+FLEDGE currently performs automatic host enumeration only when the primary IPv4 interface uses a `/24` prefix:
 
 ```text
 /24
 ```
-
-prefix.
 
 For example:
 
@@ -271,7 +269,7 @@ Processes\
 └── running_executable_hashes_YYYYMMDD_HHMMSS.csv
 ```
 
-The output can include information such as:
+The output may include information such as:
 
 ```text
 Executable Path
@@ -284,13 +282,13 @@ Hash Status
 > [!NOTE]
 > This option causes additional disk reads because FLEDGE must access executable files to calculate their cryptographic hashes.
 
-For that reason, executable hashing is optional rather than part of the default acquisition.
+For that reason, executable hashing is optional rather than part of the default acquisition. Consider a forensics image of the target drive, as needed.
 
 ---
 
 ## 🔎 Active Discovery + Executable Hashing
 
-Both optional modes can be enabled together:
+Multiple modes (switches) can be enabled together:
 
 ```powershell
 .\FLEDGE.ps1 -NetworkSweep -HashRunningExecutables
@@ -319,7 +317,7 @@ Active Network Discovery
 
 ---
 
-## ⚠️ Before You Run FLEDGE
+## ⚠️ Before Executing FLEDGE
 
 > [!IMPORTANT]
 > **FLEDGE is intended for authorized forensic, incident-response, investigative, security-research, training, and academic use only.**
@@ -350,11 +348,11 @@ Before operational use, review and accept all applicable dependency license agre
 
 FLEDGE also validates whether expected dependencies are present before acquisition and records missing dependencies in the collection log.
 
-A missing dependency does not necessarily terminate the entire collection.
+A missing dependency will not terminate the entire collection but omit those requiring the dependency.
 
 ---
 
-### 2. Run With Administrative Privileges
+### 2. Run With Elevated Privileges
 
 FLEDGE should normally be executed from an **elevated PowerShell session**.
 
@@ -363,7 +361,7 @@ PowerShell
 └── Run as Administrator
 ```
 
-Administrative privileges may be required to fully access certain:
+Administrative privileges may be required to fully access certain Artifacts:
 
 * Processes
 * Executable paths
@@ -374,7 +372,7 @@ Administrative privileges may be required to fully access certain:
 * System information
 * Persistence artifacts
 
-FLEDGE detects whether the current session has administrative privileges and records the result in the collection metadata.
+FLEDGE detects whether the current session has elevated privileges and records the result in the collection metadata.
 
 If FLEDGE is not elevated, collection continues where possible.
 
@@ -398,7 +396,7 @@ Settings
 
 Without this permission, wireless collection commands may return incomplete results or access errors.
 
-FLEDGE does not automatically enable Location Services.
+FLEDGE will not automatically enable Location Services.
 
 ---
 
