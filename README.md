@@ -169,6 +169,11 @@ The recommended default execution is:
 .\FLEDGE.ps1
 ```
 
+This is a one-time policy exception for systems with scripts disabled (default)
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\FLEDGE.ps1
+```
+
 This performs a **passive live-response collection** and does not intentionally conduct active host discovery.
 
 The standard collection includes the following artifacts:
